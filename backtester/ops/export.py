@@ -25,7 +25,8 @@ def export_registry(path: Path | None = None) -> Path:
         raise ValueError(f"op registry export path must stay under {DEFAULT_EXPORT_DIR}") from exc
     payload = build_registry().export_payload()
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(stable_json(payload), encoding="utf-8")
+    with target.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(stable_json(payload))
     return target
 
 

@@ -51,6 +51,7 @@ DISPLAY_NAMES = {
     "indicator.volatility": "Volatility",
     "indicator.atr": "Average True Range",
     "indicator.rsi": "RSI",
+    "indicator.streak": "Consecutive Bar Streak",
     "indicator.macd": "MACD",
     "gt": "Greater Than",
     "ge": "Greater Than Or Equal",
@@ -267,6 +268,32 @@ def _atr_params() -> Dict[str, Any]:
             "close_source": {"type": "string", "default": "close"},
             "period": {"type": "integer", "minimum": 1, "default": 14},
             "method": {"type": "string", "enum": ["wilder", "simple", "sma", "rolling", "ema"], "default": "wilder"},
+        },
+    }
+
+
+def _streak_params() -> Dict[str, Any]:
+    return {
+        "type": "object",
+        "additionalProperties": True,
+        "required": ["field", "right_field"],
+        "properties": {
+            "field": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Tracked series (market field or earlier computed_field name)",
+            },
+            "right_field": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Series to compare field against (market field or earlier computed_field name)",
+            },
+            "compare": {
+                "type": "string",
+                "enum": ["gt", "ge", "lt", "le", "eq", "ne"],
+                "default": "gt",
+                "description": "Comparison op between field and right_field",
+            },
         },
     }
 
@@ -690,6 +717,27 @@ def _numeric_feature_blocks() -> List[Dict[str, Any]]:
             evidence_paths=evidence,
             safety_warnings=warnings,
             optimizable_params=["period"],
+        ),
+        _block(
+            canonical_id="indicator.streak",
+            aliases=[],
+            usage_sites=_feature_sites(top_names=["indicator.streak"]),
+            params_schema=_streak_params(),
+            output_type="numeric_frame",
+            temporal_metadata=_temporal(
+                observation_time="consecutive completed bars where field satisfies compare on right_field, through the current bar",
+                availability_time="after both operands are available for the current bar",
+                earliest_trade_time="not before the later of field and right_field availability; streak-based signals normally trade the next configured bar unless a reviewed same-session execution path proves both operands were known earlier",
+                lookback_bars=_lookback("stateful", "unbounded backwards: streak length is counted from the most recent bar where the condition last went false through the current bar"),
+                stateful=True,
+                leakage_warnings=["Streak is stateful over past/current bars only; never seed from future data. NaN rows break the streak (count resets to 0)."],
+            ),
+            implementation=_implementation(path, ["MultiAssetFeatureBuilder._compute_uncached"]),
+            evidence_paths=evidence,
+            safety_warnings=warnings + [
+                "indicator.streak references earlier computed_fields; keep the right_field declared above it in computed_fields[] in the same config.",
+            ],
+            optimizable_params=[],
         ),
         _block(
             canonical_id="indicator.macd",

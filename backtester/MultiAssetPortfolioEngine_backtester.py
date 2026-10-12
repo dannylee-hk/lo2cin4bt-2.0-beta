@@ -41,6 +41,7 @@ _SAME_BAR_COMPLETED_INDICATOR_OPS = {
     "indicator.momentum",
     "indicator.percentile",
     "indicator.rsi",
+    "indicator.streak",
     "indicator.sma",
     "indicator.volatility",
     "indicator.zscore",
@@ -72,22 +73,44 @@ class MultiAssetFeatureBuilder:
         use_local_cache: bool = False,
     ) -> None:
         self.frames = {key.lower(): self._normalize_frame(value) for key, value in frames.items()}
+        self._input_frames = dict(self.frames)
         self.cache_dir = cache_dir
         self.use_local_cache = bool(use_local_cache and cache_dir is not None)
+        self._input_hash = self._hash_input_frames() if self.use_local_cache else ""
+        self._implementation_hash = (
+            hashlib.sha256(Path(__file__).read_bytes()).hexdigest() if self.use_local_cache else ""
+        )
+        self._build_signature = ""
         self.memory_cache: Dict[str, pd.DataFrame] = {}
         self.stats = {"memory_hits": 0, "local_hits": 0, "computed": 0}
         if self.use_local_cache and self.cache_dir is not None:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def build(self, feature_specs: Iterable[Dict[str, Any]]) -> Dict[str, pd.DataFrame]:
+        specs = list(feature_specs or [])
+        self.frames = dict(self._input_frames)
+        self._build_signature = hashlib.sha256(
+            json.dumps(specs, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+        ).hexdigest()
         features: Dict[str, pd.DataFrame] = {}
-        for spec in feature_specs or []:
+        seen_names: set[str] = set()
+        for spec in specs:
             if not isinstance(spec, dict):
                 continue
             name = str(spec.get("name") or "").strip()
             if not name:
                 continue
+            key = name.lower()
+            if key in seen_names:
+                raise ValueError(f"duplicate computed field name '{name}'")
+            if key in self._input_frames:
+                raise ValueError(f"computed field '{name}' conflicts with an input market field")
+            seen_names.add(key)
             features[name] = self.compute(spec)
+            # Make each computed field available to subsequent specs so that
+            # indicators like `indicator.streak` can reference earlier fields
+            # (e.g. right_field="ma200") via _source_frame.
+            self.frames[key] = self._normalize_frame(features[name])
         return features
 
     def compute(self, spec: Dict[str, Any]) -> pd.DataFrame:
@@ -122,6 +145,55 @@ class MultiAssetFeatureBuilder:
 
         if op in {"identity", "field", "source"}:
             return source.copy()
+        if op == "indicator.streak":
+            # Count of consecutive bars where `field` satisfies `compare` vs `right_field`.
+            # `field`, `right_field` must reference market fields (close/open/...)
+            # or earlier computed_fields (defined above in the list, so available).
+            # Output: integer series (0 on the first bar of a broken run, 1..n
+            # while the condition holds). Use in signals as e.g.
+            #   {"field": "above_streak", "op": "gt", "value": 100}
+            # to express "the condition has held for more than 100 bars".
+            spec_resolved = dict(spec)
+            field_name = str(spec_resolved.get("field") or spec_resolved.get("source") or "").strip().lower()
+            if not field_name:
+                raise ValueError("indicator.streak requires `field` (or `source`) naming the tracked series")
+            right_name = str(spec_resolved.get("right_field") or "").strip().lower()
+            if not right_name:
+                raise ValueError("indicator.streak requires `right_field` naming the comparison series")
+            if field_name not in self.frames or right_name not in self.frames:
+                missing = field_name if field_name not in self.frames else right_name
+                raise ValueError(
+                    f"indicator.streak: frame '{missing}' is not defined; reference a market field "
+                    "(close/open/...) or a computed_fields entry defined earlier in the list"
+                )
+            compare_op = str(spec_resolved.get("compare") or "gt").strip().lower()
+            left = self._source_frame(field_name)
+            right = self._source_frame(right_name)
+            if compare_op in {"gt", ">"}:
+                cond = left > right
+            elif compare_op in {"ge", ">="}:
+                cond = left >= right
+            elif compare_op in {"lt", "<"}:
+                cond = left < right
+            elif compare_op in {"le", "<="}:
+                cond = left <= right
+            elif compare_op in {"eq", "=="}:
+                cond = left == right
+            elif compare_op in {"ne", "!="}:
+                cond = left != right
+            else:
+                raise ValueError(f"indicator.streak: unsupported compare op '{compare_op}'")
+            cond = (cond & left.notna() & right.notna()).fillna(False)
+            out = pd.DataFrame(np.nan, index=cond.index, columns=cond.columns, dtype="float64")
+            for col in cond.columns:
+                arr = cond[col].to_numpy(dtype=bool)
+                series = np.zeros(len(arr), dtype=np.int64)
+                streak = 0
+                for i in range(len(arr)):
+                    streak = streak + 1 if arr[i] else 0
+                    series[i] = streak
+                out[col] = series
+            return out
         if op == "indicator.sma":
             return source.rolling(period, min_periods=period).mean()
         if op == "indicator.ema":
@@ -257,9 +329,18 @@ class MultiAssetFeatureBuilder:
             return default
         return parsed if parsed > 0 else default
 
-    @staticmethod
-    def _cache_key(spec: Dict[str, Any]) -> str:
+    def _hash_input_frames(self) -> str:
+        digest = hashlib.sha256()
+        for name, frame in sorted(self._input_frames.items()):
+            digest.update(name.encode("utf-8"))
+            digest.update(json.dumps(list(map(str, frame.columns)), ensure_ascii=True).encode("utf-8"))
+            digest.update(str(frame.dtypes.tolist()).encode("utf-8"))
+            digest.update(pd.util.hash_pandas_object(frame, index=True).values.tobytes())
+        return digest.hexdigest()
+
+    def _cache_key(self, spec: Dict[str, Any]) -> str:
         raw = json.dumps(spec, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+        raw = f"{self._implementation_hash}:{self._input_hash}:{self._build_signature}:{raw}"
         return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
@@ -3279,13 +3360,19 @@ class MultiAssetPortfolioEngineBacktester:
 
     def _same_bar_completed_indicator_names(self) -> set[str]:
         names: set[str] = set()
+        unsafe_sources = set(_SAME_SESSION_UNSAFE_MARKET_FIELDS)
         for spec in self._indicator_specs_for_backtest():
             if not isinstance(spec, dict):
                 continue
             op = str(spec.get("op") or spec.get("type") or "").strip().lower()
             name = str(spec.get("name") or "").strip()
-            if name and op in _SAME_BAR_COMPLETED_INDICATOR_OPS:
+            source = str(spec.get("source") or "close").strip().lower()
+            if name and (
+                op in _SAME_BAR_COMPLETED_INDICATOR_OPS
+                or (op in {"identity", "field", "source"} and source in unsafe_sources)
+            ):
                 names.add(name)
+                unsafe_sources.add(name.lower())
         return names
 
     def _indicator_specs_for_backtest(self) -> List[Any]:

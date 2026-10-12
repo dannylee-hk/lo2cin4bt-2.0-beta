@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "repo": "lo2cin4bt-v2",
+  "root": ".",
+  "created_at": "2026-08-05T14:34:53Z",
+  "last_revised": "2026-08-05T14:49:30Z",
+  "revise_reason": "deepen-lo2cin-roles",
+  "modules": [
+    {
+      "id": "lo2cin4bt-v2-root",
+      "path": "./",
+      "entry": "AGENTS.md",
+      "file_count": 14,
+      "content_hash": null
+    },
+    {
+      "id": "cursor",
+      "path": ".cursor/",
+      "entry": ".cursor/codex-history/019ecb82-e5f4-70f2-aaf7-5d7ea0ed37d8/codex-meta.json",
+      "file_count": 3,
+      "content_hash": null
+    },
+    {
+      "id": "github",
+      "path": ".github/",
+      "entry": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "file_count": 7,
+      "content_hash": null
+    },
+    {
+      "id": "agents",
+      "path": "agents/",
+      "entry": "agents/lo2cin4bt_AcceptanceSubAgent.agent.md",
+      "file_count": 6,
+      "content_hash": null
+    },
+    {
+      "id": "app",
+      "path": "app/",
+      "entry": "app/__init__.py",
+      "file_count": 29,
+      "content_hash": null
+    },
+    {
+      "id": "assets",
+      "path": "assets/",
+      "entry": "assets/readme/logos/LOGO_SOURCES.md",
+      "file_count": 1,
+      "content_hash": null
+    },
+    {
+      "id": "autorunner",
+      "path": "autorunner/",
+      "entry": "autorunner/README.md",
+      "file_count": 17,
+      "content_hash": null
+    },
+    {
+      "id": "backtester",
+      "path": "backtester/",
+      "entry": "backtester/README.md",
+      "file_count": 85,
+      "content_hash": null
+    },
+    {
+      "id": "dataloader",
+      "path": "dataloader/",
+      "entry": "dataloader/README.md",
+      "file_count": 14,
+      "content_hash": null
+    },
+    {
+      "id": "docs",
+      "path": "docs/",
+      "entry": "docs/app-core-contracts.md",
+      "file_count": 28,
+      "content_hash": null
+    },
+    {
+      "id": "factorhandler",
+      "path": "factorhandler/",
+      "entry": "factorhandler/FactorArtifactExporter_factorhandler.py",
+      "file_count": 3,
+      "content_hash": null
+    },
+    {
+      "id": "lecture",
+      "path": "Lecture/",
+      "entry": "Lecture/index.html",
+      "file_count": 23,
+      "content_hash": null
+    },
+    {
+      "id": "logs",
+      "path": "logs/",
+      "entry": "logs/",
+      "file_count": 0,
+      "content_hash": null
+    },
+    {
+      "id": "metricstracker",
+      "path": "metricstracker/",
+      "entry": "metricstracker/README.md",
+      "file_count": 9,
+      "content_hash": null
+    },
+    {
+      "id": "outputs",
+      "path": "outputs/",
+      "entry": "outputs/app/latest_runs.json",
+      "file_count": 37,
+      "content_hash": null
+    },
+    {
+      "id": "plotter",
+      "path": "plotter/",
+      "entry": "plotter/README.md",
+      "file_count": 38,
+      "content_hash": null
+    },
+    {
+      "id": "rust",
+      "path": "rust/",
+      "entry": "rust/lo2cin4bt_core/Cargo.toml",
+      "file_count": 5,
+      "content_hash": null
+    },
+    {
+      "id": "scripts",
+      "path": "scripts/",
+      "entry": "scripts/README.md",
+      "file_count": 15,
+      "content_hash": null
+    },
+    {
+      "id": "skills",
+      "path": "skills/",
+      "entry": "skills/lo2cin4bt/SKILL.md",
+      "file_count": 42,
+      "content_hash": null
+    },
+    {
+      "id": "statanalyser",
+      "path": "statanalyser/",
+      "entry": "statanalyser/README.md",
+      "file_count": 10,
+      "content_hash": null
+    },
+    {
+      "id": "tests",
+      "path": "tests/",
+      "entry": "tests/test_ai_readable_output.py",
+      "file_count": 74,
+      "content_hash": null
+    },
+    {
+      "id": "tools",
+      "path": "tools/",
+      "entry": "tools/review_trading_research.py",
+      "file_count": 1,
+      "content_hash": null
+    },
+    {
+      "id": "utils",
+      "path": "utils/",
+      "entry": "utils/calendar_events.py",
+      "file_count": 4,
+      "content_hash": null
+    },
+    {
+      "id": "verification",
+      "path": "verification/",
+      "entry": "verification/README.md",
+      "file_count": 30,
+      "content_hash": null
+    },
+    {
+      "id": "wfanalyser",
+      "path": "wfanalyser/",
+      "entry": "wfanalyser/README.md",
+      "file_count": 18,
+      "content_hash": null
+    },
+    {
+      "id": "workspace",
+      "path": "workspace/",
+      "entry": "workspace/README.md",
+      "file_count": 190,
+      "content_hash": null
+    }
+  ],
+  "ignore": [
+    ".git",
+    ".mypy_cache",
+    ".next",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".turbo",
+    ".venv",
+    "__pycache__",
+    "build",
+    "coverage",
+    "dist",
+    "htmlcov",
+    "node_modules",
+    "target",
+    "vendor",
+    "venv"
+  ]
+}

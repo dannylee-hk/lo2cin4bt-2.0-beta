@@ -1,0 +1,23 @@
+{
+  "thread_id": "019ecb85-f841-7041-9d9d-ad330fdf362f",
+  "thread_name": "rollout-2026-06-15T21-43-40-019ecb85-f841-7041-9d9d-ad330fdf362f",
+  "cwd": "D:\\trading\\lo2cin4bt-v2",
+  "project_slug": "d-trading-lo2cin4bt-v2",
+  "source_file": "C:\\Users\\Danny Lee\\.codex\\sessions\\2026\\06\\15\\rollout-2026-06-15T21-43-40-019ecb85-f841-7041-9d9d-ad330fdf362f.jsonl",
+  "raw_transcript": "C:\\Users\\Danny Lee\\.cursor\\projects\\d-trading-lo2cin4bt-v2\\agent-transcripts\\codex-019ecb85-f841-7041-9d9d-ad330fdf362f\\019ecb85-f841-7041-9d9d-ad330fdf362f.jsonl",
+  "cursor_transcript": "C:\\Users\\Danny Lee\\.cursor\\projects\\d-trading-lo2cin4bt-v2\\agent-transcripts\\codex-019ecb85-f841-7041-9d9d-ad330fdf362f\\019ecb85-f841-7041-9d9d-ad330fdf362f-cursor.jsonl",
+  "converted_stats": {
+    "source_lines": 55,
+    "cursor_lines": 23,
+    "user_messages": 13,
+    "assistant_messages": 10
+  },
+  "codex_meta": {
+    "thread_id": "019ecb85-f841-7041-9d9d-ad330fdf362f",
+    "cwd": "D:\\trading\\lo2cin4bt-v2",
+    "timestamp": "2026-06-15T13:43:40.249Z",
+    "thread_source": "subagent",
+    "model": null
+  },
+  "session_index": []
+}

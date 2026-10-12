@@ -40,6 +40,7 @@
     "indicator.percentile": "indicator.percentile",
     "indicator.rsi": "indicator.rsi",
     "indicator.sma": "indicator.sma",
+    "indicator.streak": "indicator.streak",
     "indicator.volatility": "indicator.volatility",
     "indicator.zscore": "indicator.zscore",
     "le": "le",
@@ -104,9 +105,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2117,9 +2118,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2239,9 +2240,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2361,9 +2362,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2483,9 +2484,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2605,9 +2606,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -2727,9 +2728,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached",
@@ -2879,9 +2880,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3024,9 +3025,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3152,9 +3153,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3310,9 +3311,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3438,9 +3439,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3573,9 +3574,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3701,9 +3702,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -3806,6 +3807,149 @@
           "implementation source_hash"
         ]
       },
+      "canonical_id": "indicator.streak",
+      "category": "Strategy Building Blocks",
+      "data_alignment": {
+        "fill_policy": "no backfill for tradable signals",
+        "join_mode": "caller_runtime_defined",
+        "missing_data_policy": "runtime validation and data-health checks remain authoritative",
+        "source_calendar": "caller-provided data index",
+        "source_timezone": "caller-provided data timezone"
+      },
+      "deprecation": {
+        "replacement": null,
+        "status": "active"
+      },
+      "docs": {
+        "beginner_term": "Strategy Building Blocks",
+        "display_name": "Consecutive Bar Streak"
+      },
+      "evidence_paths": [
+        "tests/test_multi_asset_portfolio_engine.py",
+        "tests/test_node_ir_executor_backtester.py",
+        "skills/lo2cin4bt/references/strategy-config-fields.md",
+        "skills/lo2cin4bt/references/indicator-recipes.md"
+      ],
+      "implementation": {
+        "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
+        "source_hashes": {
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
+        },
+        "symbols": [
+          "MultiAssetFeatureBuilder._compute_uncached"
+        ]
+      },
+      "input_shape": "depends_on_usage_site",
+      "leakage_flags": {
+        "allows_tradable_bfill": false,
+        "requires_point_in_time_source": true,
+        "uses_future": false
+      },
+      "optimizable_params": [],
+      "output_shape": "numeric_frame",
+      "output_type": "numeric_frame",
+      "params_schema": {
+        "additionalProperties": true,
+        "properties": {
+          "compare": {
+            "default": "gt",
+            "description": "Comparison op between field and right_field",
+            "enum": [
+              "gt",
+              "ge",
+              "lt",
+              "le",
+              "eq",
+              "ne"
+            ],
+            "type": "string"
+          },
+          "field": {
+            "description": "Tracked series (market field or earlier computed_field name)",
+            "minLength": 1,
+            "type": "string"
+          },
+          "right_field": {
+            "description": "Series to compare field against (market field or earlier computed_field name)",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "right_field"
+        ],
+        "type": "object"
+      },
+      "safety_warnings": [
+        "Building block metadata does not prove strategy profitability.",
+        "Use only after the source data timestamp is available; do not backfill tradable signals.",
+        "indicator.streak references earlier computed_fields; keep the right_field declared above it in computed_fields[] in the same config."
+      ],
+      "spec_version": "1.0",
+      "stability": "core",
+      "status": "supported",
+      "temporal_metadata": {
+        "availability_time": "after both operands are available for the current bar",
+        "calendar": "caller-provided data index",
+        "earliest_trade_time": "not before the later of field and right_field availability; streak-based signals normally trade the next configured bar unless a reviewed same-session execution path proves both operands were known earlier",
+        "lag_bars": 0,
+        "leakage_warnings": [
+          "Streak is stateful over past/current bars only; never seed from future data. NaN rows break the streak (count resets to 0)."
+        ],
+        "lookback_bars": {
+          "description": "unbounded backwards: streak length is counted from the most recent bar where the condition last went false through the current bar",
+          "kind": "stateful"
+        },
+        "observation_time": "consecutive completed bars where field satisfies compare on right_field, through the current bar",
+        "stateful": true,
+        "timezone": "caller-provided data timezone"
+      },
+      "unsupported_message": "indicator.streak is not supported at the requested usage site. Ask for clarification or create a reviewed Strategy Building Block with code, tests, and quant safety metadata first.",
+      "usage_sites": [
+        {
+          "accepted_names": [
+            "indicator.streak"
+          ],
+          "notes": "Top-level strategy_run computed_fields[] building block.",
+          "site": "multi_asset.indicators",
+          "support": "supported"
+        },
+        {
+          "accepted_names": [],
+          "notes": "Not implemented as an inline multi-asset condition feature.",
+          "site": "multi_asset.inline_condition_feature",
+          "support": "unsupported"
+        },
+        {
+          "accepted_names": [],
+          "notes": "Not implemented by NodeIR feature computation.",
+          "site": "node_ir.feature_dag",
+          "support": "unsupported"
+        }
+      ],
+      "wfa_safety": {
+        "oos_must_not_refit": true,
+        "train_only_selection_required": true,
+        "window_local_cache_required": true
+      }
+    },
+    {
+      "aliases": [],
+      "audit": {
+        "calendar_event_rows_required": false,
+        "source_time_required": true
+      },
+      "block_kind": "indicator",
+      "cache": {
+        "cache_key_must_include": [
+          "canonical_id",
+          "params",
+          "input identity",
+          "implementation source_hash"
+        ]
+      },
       "canonical_id": "indicator.volatility",
       "category": "Strategy Building Blocks",
       "data_alignment": {
@@ -3831,9 +3975,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -3963,9 +4107,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetFeatureBuilder._compute_uncached"
@@ -4091,9 +4235,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -4213,9 +4357,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -4335,9 +4479,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -4455,9 +4599,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -4573,9 +4717,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [
@@ -4702,9 +4846,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "4ae0904f111628838218ef7683245878f7e1560ffec656b59620660a1e8b4e18",
+        "source_hash": "8f250f5112134c11896b43a73cf6cf01fab0537a6fe8e04cb6f1a90b6c56d615",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d",
           "backtester/TradeSimulator_backtester.py": "6692a9e40306e597fe530f2b77835bd91e5936d90c151b003778821ece4d3d7d"
         },
@@ -4822,9 +4966,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "913ab3a2a2339d980694985b26b40ec9195e98029077a72a68f2ea9be2d0e4fa",
+        "source_hash": "ca7bf228a506a9caaea7270432024e7fa566a8c23140211a02959c55b27be59a",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580"
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2"
         },
         "symbols": [
           "MultiAssetPortfolioEngine._rebalance_dates",
@@ -5745,9 +5889,9 @@
       ],
       "implementation": {
         "path": "backtester/MultiAssetPortfolioEngine_backtester.py",
-        "source_hash": "d7309c33b2f193723b8fd2da62debb81e307eb36fa323c00bff4a92d4c79b0b3",
+        "source_hash": "9455d6c1357ff7896d93c588faee3f6d922c45212e9c7f70a91be28917ccf706",
         "source_hashes": {
-          "backtester/MultiAssetPortfolioEngine_backtester.py": "efbeb38b47bce33418d7252aaa87299feef63b8b2cc2693d5204471432ab2580",
+          "backtester/MultiAssetPortfolioEngine_backtester.py": "e3eb74d2b867d0c0f78888829582e672418696247a37cd7e48932832030739c2",
           "backtester/NodeIRExecutor_backtester.py": "58b63fa7e91a52611587be3f8c4115f4577827d58bc41d74bceafe48b1c9aa1d"
         },
         "symbols": [

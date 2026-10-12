@@ -217,6 +217,142 @@ def test_multi_asset_feature_builder_supports_public_indicator_ops() -> None:
     assert features["bb_upper_3"]["AAA"].iloc[-1] == pytest.approx(5.0 + 2.0)
 
 
+def test_multi_asset_feature_builder_computes_consecutive_bar_streak() -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    dates = pd.date_range("2024-01-01", periods=12, freq="D")
+    # Build a price series so we can hand-compute expected streaks of `close > sma_2`.
+    close_vals = [10.0, 11.0, 12.0, 9.0, 13.0, 14.0, 15.0, 9.5, 16.0, 17.0, 18.0, 19.0]
+    close = pd.DataFrame({"AAA": close_vals}, index=dates)
+    builder = mod.MultiAssetFeatureBuilder({"close": close})
+
+    specs = [
+        {"name": "sma_2", "op": "indicator.sma", "source": "close", "period": 2},
+        {"name": "streak", "op": "indicator.streak", "field": "close", "right_field": "sma_2", "compare": "gt"},
+    ]
+    features = builder.build(specs)
+
+    # Hand-compute expected streak for `close > sma_2`.
+    # sma_2 = avg(close[i-1], close[i]) (min_periods=2; index0 = nan)
+    sma2 = [float("nan")]
+    for i in range(1, len(close_vals)):
+        sma2.append((close_vals[i - 1] + close_vals[i]) / 2.0)
+    mask = [close_vals[i] > sma2[i] if not (sma2[i] != sma2[i]) else False for i in range(len(close_vals))]
+    expected = []
+    run = 0
+    for m in mask:
+        run = run + 1 if m else 0
+        expected.append(run)
+    got = features["streak"]["AAA"].tolist()
+    assert got == expected, f"streak {got} != expected {expected} (mask {mask})"
+
+    # Spot-check known transitions derived from the same hand-computed mask.
+    assert got[3] == 0  # close[3]=9 < sma_2[3]=10.5 → run broken
+    assert got[5] == 2  # streak of [close[4], close[5]] both > sma_2 → count 2
+
+    # right_field may reference a computed field created earlier (sma_2 is available).
+    # Already tested above. Also verify missing right_field raises:
+    with pytest.raises(ValueError, match="indicator.streak"):
+        builder.compute({"name": "bad", "op": "indicator.streak", "field": "close", "right_field": "does_not_exist"})
+
+    # NaN in the source frame should break the streak (not propagate NaN).
+    close_nan = close.copy()
+    close_nan.loc[dates[7]] = float("nan")
+    builder_nan = mod.MultiAssetFeatureBuilder({"close": close_nan})
+    feats_nan = builder_nan.build(specs)
+    # streak[7] must be 0 because NaN breaks the run.
+    assert feats_nan["streak"]["AAA"].iloc[7] == 0
+    # and the streak resumes normally after the NaN.
+    # close[8]=16, sma_2[8]=(NaN+16)/2 = NaN → mask False → streak[8]=0.
+    assert feats_nan["streak"]["AAA"].iloc[8] == 0
+
+
+def test_streak_recomputes_when_prior_computed_field_changes() -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    close = pd.DataFrame({"AAA": [1.0, 1.0, 11.0, 7.0]}, index=pd.date_range("2024-01-01", periods=4))
+    builder = mod.MultiAssetFeatureBuilder({"close": close})
+
+    def specs(period: int) -> list[dict]:
+        return [
+            {"name": "ma", "op": "indicator.sma", "source": "close", "period": period},
+            {"name": "streak", "op": "indicator.streak", "field": "close", "right_field": "ma", "compare": "gt"},
+        ]
+
+    assert builder.build(specs(2))["streak"]["AAA"].tolist() == [0, 0, 1, 0]
+    assert builder.build(specs(3))["streak"]["AAA"].tolist() == [0, 0, 1, 2]
+
+
+def test_duplicate_computed_field_names_fail_closed() -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    close = pd.DataFrame({"AAA": [1.0, 1.0, 11.0, 7.0]}, index=pd.date_range("2024-01-01", periods=4))
+    builder = mod.MultiAssetFeatureBuilder({"close": close})
+    with pytest.raises(ValueError, match="duplicate computed field name"):
+        builder.build([
+            {"name": "ma", "op": "indicator.sma", "source": "close", "period": 2},
+            {"name": "MA", "op": "indicator.sma", "source": "close", "period": 3},
+        ])
+
+
+def test_streak_ne_breaks_on_missing_operand() -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    dates = pd.date_range("2024-01-01", periods=3)
+    close = pd.DataFrame({"AAA": [1.0, float("nan"), 2.0]}, index=dates)
+    zero = pd.DataFrame({"AAA": [0.0, 0.0, 0.0]}, index=dates)
+    builder = mod.MultiAssetFeatureBuilder({"close": close, "zero": zero})
+    got = builder.build([
+        {"name": "streak", "op": "indicator.streak", "field": "close", "right_field": "zero", "compare": "ne"},
+    ])["streak"]["AAA"].tolist()
+    assert got == [1, 0, 1]
+
+
+def test_local_feature_cache_separates_different_input_data(tmp_path) -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    dates = pd.date_range("2024-01-01", periods=3)
+    spec = [{"name": "ma", "op": "indicator.sma", "source": "close", "period": 2}]
+    first = mod.MultiAssetFeatureBuilder(
+        {"close": pd.DataFrame({"AAA": [1.0, 2.0, 3.0]}, index=dates)},
+        cache_dir=tmp_path, use_local_cache=True,
+    )
+    second = mod.MultiAssetFeatureBuilder(
+        {"close": pd.DataFrame({"AAA": [1.0, 2.0, 30.0]}, index=dates)},
+        cache_dir=tmp_path, use_local_cache=True,
+    )
+    assert first.build(spec)["ma"]["AAA"].iloc[-1] == 2.5
+    assert second.build(spec)["ma"]["AAA"].iloc[-1] == 16.0
+    assert second.stats["local_hits"] == 0
+
+
+def test_streak_local_cache_separates_upstream_specs(tmp_path) -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    close = pd.DataFrame({"AAA": [1.0, 1.0, 11.0, 7.0]}, index=pd.date_range("2024-01-01", periods=4))
+
+    def specs(period: int) -> list[dict]:
+        return [
+            {"name": "ma", "op": "indicator.sma", "source": "close", "period": period},
+            {"name": "streak", "op": "indicator.streak", "field": "close", "right_field": "ma", "compare": "gt"},
+        ]
+
+    first = mod.MultiAssetFeatureBuilder({"close": close}, cache_dir=tmp_path, use_local_cache=True)
+    second = mod.MultiAssetFeatureBuilder({"close": close}, cache_dir=tmp_path, use_local_cache=True)
+    assert first.build(specs(2))["streak"]["AAA"].tolist() == [0, 0, 1, 0]
+    assert second.build(specs(3))["streak"]["AAA"].tolist() == [0, 0, 1, 2]
+    assert second.stats["local_hits"] == 0
+
+
+def test_local_feature_cache_invalidates_on_implementation_change(tmp_path) -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    close = pd.DataFrame({"AAA": [1.0, 2.0, 3.0]}, index=pd.date_range("2024-01-01", periods=3))
+    specs = [{"name": "ma", "op": "indicator.sma", "source": "close", "period": 2}]
+    first = mod.MultiAssetFeatureBuilder({"close": close}, cache_dir=tmp_path, use_local_cache=True)
+    first.build(specs)
+    second = mod.MultiAssetFeatureBuilder({"close": close}, cache_dir=tmp_path, use_local_cache=True)
+    second.build(specs)
+    assert second.stats["local_hits"] == 1
+    changed = mod.MultiAssetFeatureBuilder({"close": close}, cache_dir=tmp_path, use_local_cache=True)
+    changed._implementation_hash = "changed-implementation-hash"
+    assert changed.build(specs)["ma"]["AAA"].iloc[-1] == 2.5
+    assert changed.stats["local_hits"] == 0
+
+
 def test_multi_asset_atr_accepts_explicit_ohlc_sources_without_default_close() -> None:
     mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
     dates = pd.date_range("2024-01-02", periods=4, freq="B")
@@ -398,6 +534,32 @@ def test_multi_asset_same_session_rejects_raw_close_entry_lookahead() -> None:
         ).run()
 
 
+def test_same_session_rejects_identity_alias_of_streak() -> None:
+    mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
+    dates = pd.date_range("2024-01-02", periods=5, freq="B")
+    close = pd.DataFrame({"QQQ": [100.0, 101.0, 103.0, 104.0, 102.0]}, index=dates)
+    config = {
+        "strategy_id": "same_session_streak_alias_probe",
+        "universe": {"symbols": ["QQQ"]},
+        "computed_fields": [
+            {"name": "ma", "op": "indicator.sma", "source": "close", "period": 2},
+            {"name": "streak", "op": "indicator.streak", "field": "close", "right_field": "ma"},
+            {"name": "alias", "op": "identity", "source": "streak"},
+        ],
+        "signals": {
+            "entry": {"field": "alias", "op": "gt", "value": 0},
+            "exit": {"op": "session.same_session_close"},
+            "target_weight": 1.0,
+        },
+        "allocation": {"method": "signal_state", "target_weight": 1.0},
+        "rebalance": {"trigger": {"op": "signal.change"}},
+        "fill_model": {"session_scope": "same_session", "entry_price": "open", "exit_price": "close"},
+        "risk": {"max_positions": 1, "max_gross_exposure": 1.0, "long_short": "long_only"},
+    }
+    with pytest.raises(ValueError, match="same-session entry cannot use indicators"):
+        mod.MultiAssetPortfolioEngineBacktester({"open": close.copy(), "close": close}, config).run()
+
+
 def test_multi_asset_same_session_accepts_calendar_entry_without_lookahead() -> None:
     mod = importlib.import_module("backtester.MultiAssetPortfolioEngine_backtester")
     dates = pd.date_range("2024-01-01", periods=10, freq="B")
@@ -500,6 +662,15 @@ def test_multi_asset_same_session_accepts_calendar_entry_without_lookahead() -> 
             ],
             {"field": "macd_line", "op": "gt", "right_field": "macd_signal"},
             {"field": "macd_line", "op": "lt", "right_field": "macd_signal"},
+        ),
+        (
+            "streak",
+            [
+                {"name": "sma_2", "op": "indicator.sma", "source": "close", "period": 2},
+                {"name": "above_streak", "op": "indicator.streak", "field": "close", "right_field": "sma_2", "compare": "gt"},
+            ],
+            {"field": "above_streak", "op": "gt", "value": 5},
+            {"field": "close", "op": "lt", "right_field": "sma_2"},
         ),
     ],
 )

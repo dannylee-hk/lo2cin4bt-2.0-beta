@@ -67,7 +67,7 @@ Reserved/planned modes such as `dynamic_allocation_rules` and `multi_asset_trigg
 
 ## Semantic Indicator Support
 
-For `strategy_run` configs routed through the unified portfolio engine, top-level `computed_fields[]` can define `indicator.sma`, `indicator.ema`, `indicator.momentum`, `indicator.volatility`, `indicator.atr`, `indicator.rsi`, `indicator.macd`, `indicator.zscore`, `indicator.percentile`, and `indicator.bollinger`. After the computed field is named, reuse that name in `selection.rank_by`, `selection.eligible`, or `signals.entry` / `signals.exit`. Use only these canonical `indicator.*` op names; aliases such as `sma`, `ta.sma`, `atr`, or `average_true_range` are intentionally rejected so AI-authored configs stay consistent.
+For `strategy_run` configs routed through the unified portfolio engine, top-level `computed_fields[]` can define `indicator.sma`, `indicator.ema`, `indicator.momentum`, `indicator.volatility`, `indicator.atr`, `indicator.rsi`, `indicator.streak`, `indicator.macd`, `indicator.zscore`, `indicator.percentile`, and `indicator.bollinger`. After the computed field is named, reuse that name in `selection.rank_by`, `selection.eligible`, or `signals.entry` / `signals.exit`. Use only these canonical `indicator.*` op names; aliases such as `sma`, `ta.sma`, `atr`, or `average_true_range` are intentionally rejected so AI-authored configs stay consistent.
 
 Public indicators are current-bar-completed fields and cannot be used for same-session open entries unless a reviewed implementation proves the signal was known before the fill.
 

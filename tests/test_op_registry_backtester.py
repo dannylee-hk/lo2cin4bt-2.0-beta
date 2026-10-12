@@ -50,6 +50,7 @@ EXPECTED_CORE_OPS = {
     "indicator.percentile",
     "indicator.rsi",
     "indicator.sma",
+    "indicator.streak",
     "indicator.volatility",
     "indicator.zscore",
     "le",
@@ -122,6 +123,7 @@ EXPECTED_BLOCK_KINDS = {
     "indicator.momentum": "indicator",
     "indicator.percentile": "indicator",
     "indicator.rsi": "indicator",
+    "indicator.streak": "indicator",
     "indicator.sma": "indicator",
     "indicator.volatility": "indicator",
     "indicator.zscore": "indicator",
@@ -198,6 +200,7 @@ def test_registry_classifies_building_blocks_by_authoring_kind() -> None:
         "indicator.percentile",
         "indicator.rsi",
         "indicator.sma",
+        "indicator.streak",
         "indicator.volatility",
         "indicator.zscore",
     }
@@ -231,6 +234,11 @@ def test_usage_site_support_records_nodeir_and_multi_asset_differences() -> None
     assert registry.is_supported("indicator.percentile", MULTI_ASSET_INDICATORS)
     assert registry.is_supported("indicator.bollinger", MULTI_ASSET_INDICATORS)
     assert registry.is_supported("indicator.atr", MULTI_ASSET_INDICATORS)
+
+    streak = next(op for op in registry.export_payload()["ops"] if op["canonical_id"] == "indicator.streak")
+    assert streak["params_schema"]["required"] == ["field", "right_field"]
+    assert streak["params_schema"]["properties"]["field"]["type"] == "string"
+    assert streak["params_schema"]["properties"]["right_field"]["type"] == "string"
 
     assert registry.is_supported(">", "multi_asset.condition")
     assert not registry.is_supported(">", NODE_IR_CONDITION)
@@ -496,6 +504,7 @@ def test_deterministic_export_order_and_generated_snapshot_match_code() -> None:
     assert ids == sorted(ids)
     assert stable_json(payload) == stable_json(build_registry().export_payload())
     assert _load_json(EXPORT_PATH) == payload
+    assert EXPORT_PATH.read_bytes() == stable_json(payload).encode("utf-8")
 
 
 def test_unknown_ops_report_unsupported() -> None:
